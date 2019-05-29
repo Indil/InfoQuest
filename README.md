@@ -1,7 +1,8 @@
-**Last Commit** | ![Last Commit](https://img.shields.io/github/last-commit/Indil/InfoQuest.svg?style=plastic)
+Info | Status
 --- | ---
-**Current Version** | <div align="left">![Current Version](https://img.shields.io/github/tag-date/Indil/InfoQuest.svg?style=plastic)</div>
-**License** | ![License](https://img.shields.io/github/license/Indil/InfoQuest.svg?style=plastic)
+*Current Version* | ![Current Version](https://img.shields.io/github/tag-date/Indil/InfoQuest.svg?style=plastic)
+*Last Commit* | ![Last Commit](https://img.shields.io/github/last-commit/Indil/InfoQuest.svg?style=plastic)
+*License* | ![License](https://img.shields.io/github/license/Indil/InfoQuest.svg?style=plastic)
 
 ---
 
