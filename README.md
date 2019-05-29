@@ -1,8 +1,10 @@
-**Current Version** | ![Current Version](https://img.shields.io/badge/version-1.0-blue.svg?style=plastic)
---- | ---
-**License** | ![License](https://img.shields.io/github/license/Indil/InfoQuest.svg?style=plastic)
 **Last Commit** | ![Last Commit](https://img.shields.io/github/last-commit/Indil/InfoQuest.svg?style=plastic)
+--- | ---
+**Current Version** | <div align="left">![Current Version](https://img.shields.io/github/tag-date/Indil/InfoQuest.svg?style=plastic)</div>
+**License** | ![License](https://img.shields.io/github/license/Indil/InfoQuest.svg?style=plastic)
+
 ---
+
 # InfoQuest
 InfoQuest is designed to help players retrieving infos by a quest ID. InfoQuest can be very useful for example, if you want know what quest of a chain quests has not yet completed or if you want find out its title.
 
