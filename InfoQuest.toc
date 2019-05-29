@@ -1,16 +1,38 @@
-## Interface: 70100
-## Version: 0.1
+## Interface: 70200
+## Version: 1.0
 ## Title: InfoQuest
 ## Title-enUS: InfoQuest
 ## Title-itIT: InfoQuest
 ## Author: Indil
-## Description: Finds info on user request about character's quests.
-## Description-enUS: Finds info on user request about character's quests.
-## Description-itIT: Recupera info sulle quests del personaggio attuale su richiesta dell'utente.
+
+## Description: InfoQuest is designed to help user retrieving infos by a quest ID. InfoQuest can be very useful for example, 
+if you want know what quest of a quests chain has not yet completed or if you want find out its title.
+## Description-enUS: InfoQuest is designed to help user retrieving infos by a quest ID. InfoQuest can be very useful forexample, if you want know what quest of a quests chain has not yet completed or if you want find out its title.
+## Description-itIT: InfoQuest è progettato per ottenere info tramite l'ID missione. InfoQuest può essere utile per esempio, se si vuole sapere quale missione di una serie non è stata ancora completata o se ne si vuole ottenere il titolo.
 
 ## Notes: Finds info on user request about character's quests.
 ## Notes-enUS: Finds info on user request about character's quests.
 ## Notes-itIT: Recupera info sulle quests del personaggio attuale su richiesta dell'utente.
 
+## X-Embeds: LibStub, AceConfig-3.0
+## X-Category: Quest & Leveling, Data Export, Miscellaneous
+## X-Localizations: enUS, itIT
+## X-Website: https://www.curseforge.com/wow/addons/infoquest
+## X-PM: http://bit.ly/2FCnoNB
+## X-Donate: http://bit.ly/2tMoIMw
+## X-Credits: Indil
+## X-Curse-Packaged-Version: 1.0
+## X-Curse-Project-Name: InfoQuest
+## X-Curse-Project-ID: infoquest
+## X-Curse-Repository-ID: wow/infoquest
+## X-Date: 2018-03-18T17:10:40Z
+
+#@no-lib-strip@
+libs\LibStub\LibStub.lua
+libs\AceConfig-3.0\AceConfig-3.0.xml
+#@end-no-lib-strip@
+
+config.lua
 locales\load_locales.xml
 InfoQuest.lua
+InfoQuest_About.lua

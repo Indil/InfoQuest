@@ -1,6 +1,12 @@
+Ver = GetAddOnMetadata(ADDONNAME, "Version")
 local f, events, idQuests = CreateFrame("Frame"), {}, {}
-local ADDONNAME, L = ...
-local Ver = GetAddOnMetadata(ADDONNAME, "Version")
+
+
+--local DEBUG = ADDONNAME.DEBUG
+--local expect = ADDONNAME.expect
+
+
+
 local function defaultFunc(L, key)
  -- If this function was called, we have no localization for this key.
  -- We could complain loudly to allow localizers to see the error of their ways, 
@@ -9,16 +15,57 @@ local function defaultFunc(L, key)
  return key;
 end
 setmetatable(L, {__index=defaultFunc});
+
 	-----------------------------
 	-- [BEGIN HANDLING EVENTS] --
 	-----------------------------
-	  -- PLAYER_LOGIN Handler --
+	-- [PLAYER_LOGIN Handler] --
 
 	function events:PLAYER_LOGIN(...)
 		print(ADDONNAME .. " v.\124cffffff00" .. Ver .. "\124r properly loaded.") -- Login message
+		f:UnregisterEvent("PLAYER_LOGIN")
 	end
 
+	-- [CHAT_MSG_ADDON HAndler] --
+	--[[
+	function events:CHAT_MSG_ADDON(...)
+		local msgPrefix, msgMessage, msgType, msgSender = ...;
+		if (msgPrefix == "InfoQuest" and msgMessage and msgMessage ~= "") then
+			
+			print(msgMessage)
 
+		
+			local iSlash = string.find(msgMessage,":",1);
+			if (iSlash) then
+				local sCommand = string.sub(msgMessage,1,iSlash - 1);
+				local sValue = string.sub(msgMessage,iSlash + 1);
+				if (sCommand == "V" and sValue) then
+					-- Version update received
+					--GTFO_DebugPrint(msgSender.." sent version info '"..sValue.."' to "..msgType);
+					if (not GTFO.Users[msgSender]) then
+						GTFO_SendUpdate(msgType);
+					end
+					GTFO.Users[msgSender] = sValue;
+					if ((tonumber(sValue) > GTFO.VersionNumber) and not GTFO.UpdateFound) then
+						GTFO.UpdateFound = GTFO_ParseVersionNumber(sValue);
+						if (not GTFO.Settings.NoVersionReminder) then
+							GTFO_ChatPrint(string.format(GTFOLocal.Loading_OutOfDate, GTFO.UpdateFound));
+						end
+					end
+					return;
+				elseif (sCommand == "U" and sValue) then
+					-- Version Request
+					--GTFO_DebugPrint(msgSender.." requested update to "..sValue);
+					GTFO_SendUpdate(sValue);
+					return;
+				end
+			end
+			
+		end
+		return;
+	end
+	]]--
+	
 
 	-- [GETS TITLE QUEST FROM ID] --
 	local MyScanningTooltip = CreateFrame("GameTooltip", "MyScanningTooltip", UIParent, "GameTooltipTemplate")
@@ -48,22 +95,28 @@ setmetatable(L, {__index=defaultFunc});
 		MSG:SetTimeVisible(6)
 
 
+	--[[
 
+		TO DEVELOPE for MULTI-INPUT PURPOSE
+	-------------------------------------------
 	-- [Populates the table of QUESTS lists] --
+    
     function mInsertIDs(v)
 	    for i,v in ipairs(v) do
 	      idQuests[v] = i
 	    end
 	end
-
-	-- [MULTI-OUTPUT ROUTINE OF INFO ON QUESTS COMPLETED OR NOT] --
-	--[[
+	
+	-- [MULTI-OUTPUT ROUTINE TO FIND OUT INFOS OF QUESTS] --
+	
 		function mPrintQ(idQuests)
 			for k,v in pairs(idQuests) do
-				print(format("%s: |cff%s|r", k, IsQuestFlaggedCompleted(v) and "00ff00Yes" or "ff0000No"))
+				-- DO SOMETHING
 			end
 		end
+
 	]]--
+
 
 		--------------------------------
 		-- [ERRORS HANDLING FUNCTION] --
@@ -93,7 +146,7 @@ setmetatable(L, {__index=defaultFunc});
 				print("\124cffff7d0a["..ADDONNAME.."\124r]"..L[": input field null."])
 			end
 
-			-- PROBLEM WHEN NOT FIND ERROR
+			-- ISSUE WHEN NOT FIND ERROR (on lua errors handling)
 		end
 
 		
@@ -103,74 +156,51 @@ setmetatable(L, {__index=defaultFunc});
 		MSG:Show()		
 		QTitle = QuestTitleFromID[idQ]
 
-		
-		-- [BEGIN TABLE COLORS CONVERSION] --
-		
-			TBLColors = {["Green"] = "0.001.000.00", ["Red"] = "1.000.000.00",
-				["Yellow"] = "1.001.000.00", ["Orange"] = "1.000.490.04"}
-			
-			function ColorToRGB(sCOLOR)
-				R = tonumber(string.sub(COLOR, 1, 4))
-		 		G = tonumber(string.sub(COLOR, 5, 8))
-				B = tonumber(string.sub(COLOR, 9, 12))
-
-				return R,G,B
-			end
-		-- [END TABLE COLOR CONVERSION] --
 
 		if QTitle then -- Title Quest found on server database
 
 			if IsQuestFlaggedCompleted(idQ) then
 				--print(format(ADDONNAME..": \124cff9d9d9d[%s]\124r %s", QTitle, "has already been completed"))
 				COLOR = TBLColors["Green"]
-				infoQ = format(L["\124cff9d9d9d%s\124r %s"], QTitle, L["has already been completed"])
-				print (infoQ)
+				infoQ = format("\124cff9d9d9d%s\124r %s", QTitle, L["has already been completed"])
+				--print (infoQ)
 			else
 				--print(format(ADDONNAME..": \124cff9d9d9d[%s]\124r %s", QTitle, "has not yet been completed")
 				COLOR = TBLColors["Orange"]
-				infoQ = format(L["\124cff9d9d9d%s\124r %s"], QTitle, L["has not yet been completed"])
-				print (infoQ)
+				infoQ = format("\124cff9d9d9d%s\124r %s", QTitle, L["has not yet been completed"])
+				--print (infoQ)
 			end
 
 		else -- Title Quest not found on server database
 			
 			if IsQuestFlaggedCompleted(idQ) then
-				COLOR = TBLColors["Yellow"]
+				COLOR = TBLColors["WYellow"]
 				r,g,b = ColorToRGB(COLOR)
-				MSG:AddMessage(L["NO DATABASE INFO FOUND"], r,g,b, 10)
+				MSG:AddMessage(L["NO DATABASE INFO FOUND"], r,g,b, 10, 6)
 				
 				COLOR = TBLColors["Green"]
 				infoQ = format(L["Quest ID \124cff9d9d9d[%s]\124r %s"], idQ, L["has already been completed"])
 			else
-				COLOR = TBLColors["Yellow"]
+				COLOR = TBLColors["WYellow"]
 				r,g,b = ColorToRGB(COLOR)
-				MSG:AddMessage(L["NO DATABASE INFO FOUND"], r,g,b, 10)
+				MSG:AddMessage(L["NO DATABASE INFO FOUND"], r,g,b, 10, 6)
 				
 				COLOR = TBLColors["Red"]
 				infoQ = format(L["Quest ID \124cff9d9d9d[%s]\124r %s"], idQ, L["has not yet been completed"])
 			end
 		end
 		
-		--print(R..","..G..","..B)
 		r,g,b = ColorToRGB(COLOR)
-		MSG:AddMessage(infoQ, r,g,b, 10)
+		MSG:AddMessage(infoQ, r,g,b, 10, 6)
 
-		MSGLOADED = 1
+		MSGLOADED = true
 	end
 
-	f:SetScript("OnEvent", function(self, event, ...)
-		events["PLAYER_LOGIN"](self, ...) -- call one of the functions above
-	end)
-
-	for k, v in pairs(events) do
-		f:RegisterEvent(k) -- Register all events for which handlers have been defined
-	end
-
-
+	
 	-- [Input for Quest ID] --
 	StaticPopupDialogs["SetVariable"] = {
-		text = L["Insert QuestID for info:"],
-		button1 = L["OK"],
+		text = L["Insert QuestID to get info:"],
+		button1 = L["Check"],
 		--button3 = L["Set by UnitId"],
 		button2 = L["Cancel"],
 		hasEditBox = 1,
@@ -218,13 +248,23 @@ setmetatable(L, {__index=defaultFunc});
 		--end
 		EditBoxOnTextChanged = function (self, data) -- careful! 'self' here points to the editbox, not the dialog
 		    if self:GetText() ~= "" then
-		    	self:GetParent().button1:Enable()       -- self:GetParent() is the dialog
+		    	self:GetParent().button1:Enable()    -- self:GetParent() is the dialog
 		    else
 		    	self:GetParent().button1:Disable()
 		    end
 		end
 	}
 
+
+	-- [REGISTERS ALL EVENTS NEEDED FOR ADDON] --
+	f:SetScript("OnEvent", function(self, event, ...)
+		events["PLAYER_LOGIN"](self, ...) -- call one of the functions above
+		--events["CHAT_MSG_ADDON"](self, ...)
+	end)
+
+	for k, v in pairs(events) do
+		f:RegisterEvent(k) -- Register all events for which handlers have been defined
+	end
 
 
 	SLASH_INFOQUEST1 = "/infoq"
@@ -233,7 +273,9 @@ setmetatable(L, {__index=defaultFunc});
 		
 		if MSGLOADED then
 			MSG:Hide()
+			MSG:Clear()
 			QTitle = nil
+			MSGLOADED = nil
 		end
 
 		StaticPopup_Show("SetVariable")

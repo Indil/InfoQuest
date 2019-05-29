@@ -1,0 +1,65 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="UIOptionsFrame">
+    <Scripts>
+      <OnLoad>self.name = "InfoQuest"
+        <!--LoadOptionsMainPanel (self)-->
+      </OnLoad>
+      <OnShow>local f = _G["SetupOptionsFrame"];
+        <!--
+        if (f) then
+          self:Hide();
+          InterfaceOptionsFrame_OpenToCategory (f)
+          InterfaceOptionsFrame_OpenToCategory (f)
+        end
+      -->
+      </OnShow>
+    </Scripts>
+  </Frame>
+
+
+  <!-- The About screen -->
+  <Frame enableMouse="true" hidden="true" inherits="OptionsPanelTemplate" name="InfoQuestDescriptionFrame" parent="UIParent">
+    <Scripts>
+      <!--<OnLoad>LoadOptionsSubPanel (self, L["About"], L["About InfoQuest"]);-->
+      </OnLoad>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontDisableSmall" justifyH="LEFT" justifyV="TOP" text="Author:  Borjamacare (US)">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT">
+              <Offset>
+                <AbsDimension x="30" y="35"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontDisableSmall" justifyH="LEFT" justifyV="TOP" name="InfoQuestVersionText">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT">
+              <Offset>
+                <AbsDimension x="30" y="20"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <SimpleHTML name="InfoQuestDescriptionHTML">
+        <Size>
+          <AbsDimension x="320" y="120"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="20" y="-70"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <FontString inherits="GameFontNormal" />
+        <FontStringHeader1 inherits="GameFontNormal"/>
+      </SimpleHTML>
+    </Frames>
+  </Frame>
+</Ui>
