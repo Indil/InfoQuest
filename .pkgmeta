@@ -1,0 +1,9 @@
+externals:
+    Libs/LibStub:
+        url: https://repos.wowace.com/wow/libstub/trunk
+    Libs/AceConfig-3.0:
+        url: https://repos.wowace.com/wow/libaceconfigapi
+        
+license-output: LICENSE.html
+
+enable-nolib-creation: no
