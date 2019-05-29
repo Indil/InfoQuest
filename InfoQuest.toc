@@ -1,0 +1,16 @@
+## Interface: 70100
+## Version: 0.1
+## Title: InfoQuest
+## Title-enUS: InfoQuest
+## Title-itIT: InfoQuest
+## Author: Indil
+## Description: Finds info on user request about character's quests.
+## Description-enUS: Finds info on user request about character's quests.
+## Description-itIT: Recupera info sulle quests del personaggio attuale su richiesta dell'utente.
+
+## Notes: Finds info on user request about character's quests.
+## Notes-enUS: Finds info on user request about character's quests.
+## Notes-itIT: Recupera info sulle quests del personaggio attuale su richiesta dell'utente.
+
+locales\load_locales.xml
+InfoQuest.lua
