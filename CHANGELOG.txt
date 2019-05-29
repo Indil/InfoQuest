@@ -1,0 +1,15 @@
+# InfoQuest Changelog
+
+## Version 1.0.1
+### Bug fixes
+* Fixed .pkgmeta and .gitignore for case-sensitive path issue.
+
+## Version 1.0
+### Major changes
+* Toc file updated to work now with "Deaths of Chromie".
+* Added Credits page to Interface/Addons.
+### Other
+* Some minor bugs fixes.
+
+## Version 0.1
+* Public release.
