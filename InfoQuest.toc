@@ -1,11 +1,11 @@
 ## Interface: 70200
-## Version: 1.0
+## Version: @project-version@
 ## Title: InfoQuest
 ## Title-enUS: InfoQuest
 ## Title-itIT: InfoQuest
 ## Author: Indil
 
-## Description: InfoQuest is designed to help user retrieving infos by a quest ID. InfoQuest can be very useful for example, 
+## Description: InfoQuest is designed to help user retrieving infos by a quest ID. InfoQuest can be very useful for example,
 if you want know what quest of a quests chain has not yet completed or if you want find out its title.
 ## Description-enUS: InfoQuest is designed to help user retrieving infos by a quest ID. InfoQuest can be very useful forexample, if you want know what quest of a quests chain has not yet completed or if you want find out its title.
 ## Description-itIT: InfoQuest è progettato per ottenere info tramite l'ID missione. InfoQuest può essere utile per esempio, se si vuole sapere quale missione di una serie non è stata ancora completata o se ne si vuole ottenere il titolo.
@@ -25,7 +25,7 @@ if you want know what quest of a quests chain has not yet completed or if you wa
 ## X-Curse-Project-Name: InfoQuest
 ## X-Curse-Project-ID: infoquest
 ## X-Curse-Repository-ID: wow/infoquest
-## X-Date: 2018-03-18T17:10:40Z
+## X-Date: @project-date-iso@
 
 #@no-lib-strip@
 libs\LibStub\LibStub.lua
